@@ -1,10 +1,24 @@
 import React from 'react';
+import {connect} from 'react-redux'
+import * as actions from '../redux/actions/actions'
+import CbList from '../containers/cbList'
 
 class SubjectSelect extends React.Component{
 
+    componentWillMount(){
+//        this.props.getAllSubjects();
+    }
+
     render(){
-        return (<div><span>subject select</span></div>)
+        console.log(this.props.subjectsList)
+        return (<div><CbList list={this.props.subjectsList}/></div>)
     }
 }
 
-export default SubjectSelect;
+function mapStateToProps(state){
+    return {
+        subjectsList: state.quiz.subjectsList
+    }
+}
+
+export default connect(mapStateToProps, actions)(SubjectSelect);
