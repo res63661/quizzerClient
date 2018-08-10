@@ -15,6 +15,12 @@ class CbList extends React.Component {
             hit.isChecked = isChecked;
         }
         console.log(this.props.list.map((v) => v.isChecked).join(', '))
+
+        ///Tell parent.
+        if(this.props.handleChecked)
+        {
+            this.props.handleChecked(hit);
+        }
     }
 
     render() {
@@ -31,5 +37,6 @@ class CbList extends React.Component {
         )
     }
 }
+
 
 export default CbList;

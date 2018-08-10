@@ -27,6 +27,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Login}/>
             <Route path='/selectSubjects' component={SubjectSelect}/>
+            <Route path='/takeTest' component={TakeTest}/>
           </Switch>
         </BrowserRouter>
         </Provider>

@@ -1,10 +1,68 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../redux/actions/actions'
 
-class TakeTest extends React.Component{
+import { withRouter } from 'react-router'
+class TakeTest extends React.Component {
 
-    render(){
-        return (<span>take test</span>)
+    constructor(props) {
+        super(props);
+
+    }
+
+    componentWillMount(){
+        if(this.props.location.state.subjectsList){
+            console.dir(this.props.location.state)
+            console.dir('You selected: ' + this.props.location.state.subjectsList.map((s) => s.subject).join(', '))            
+        }
+
+        this.props.getQuestionsBySubject(this.props.location.state.subjectsList);
+    }
+
+    render() {
+
+        this.question = 'no q';
+        this.answer = 'no answer'
+        if (this.props.questionList) {
+            this.question = this.props.questionList[0].question;
+            this.answer = this.props.questionList[1].answer;
+        }
+
+
+        return (
+            <div>
+                <div>
+                    <div>
+                        <input name="Q" value={this.question} />
+                    </div>
+                    <div>
+                        <input name="A" value={this.answer} />
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <button></button>
+                        <span>Show Answer</span>
+                    </div>
+                    <div>
+                        <button></button>
+                        <span>Show next</span>
+                    </div>
+                    <div>
+                        <button></button>
+                        <span>Show Last</span>
+                    </div>
+                </div>
+
+            </div>
+        )
     }
 }
 
-export default TakeTest;
+function mapStateToProps(state) {
+    return {
+        questionList: state.quiz.questionsList
+    }
+}
+
+export default connect(mapStateToProps, actions)(withRouter(TakeTest));
