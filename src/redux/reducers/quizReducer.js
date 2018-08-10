@@ -19,6 +19,8 @@ export default function QuizReducer(state={subjectsList}, action){
             return {...state, subjectsList: action.payload}
         case types.getAllSubjectsSuccess:
             return {...state, subjectsList: action.payload}
+        case types.getQuestionsBySubjectsSuccess:
+            return{...state, questionsList: action.payload}
     }
 
     return state;

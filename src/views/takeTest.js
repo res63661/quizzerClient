@@ -16,14 +16,14 @@ class TakeTest extends React.Component {
             console.dir('You selected: ' + this.props.location.state.subjectsList.map((s) => s.subject).join(', '))            
         }
 
-        this.props.getQuestionsBySubject(this.props.location.state.subjectsList);
+        this.props.getQuestionsBySubjects(this.props.location.state.subjectsList.map(s=>s.subject));
     }
 
     render() {
 
         this.question = 'no q';
         this.answer = 'no answer'
-        if (this.props.questionList) {
+        if (this.props.questionList && this.props.questionList.length > 0) {
             this.question = this.props.questionList[0].question;
             this.answer = this.props.questionList[1].answer;
         }

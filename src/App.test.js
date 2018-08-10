@@ -44,6 +44,23 @@ it('pulls all subjects', (done)=>{
   
 });
 
+it('pulls all questions by subject list', (done)=>{
+  let dispatch = ()=>null;
+  const testV = ["12", "132"];
+  let subjects = actions.getQuestionsBySubjects_fetch(testV)
+  .then(res=>res.json())
+  .then(json=>{
+    let r = json;
+    done();
+  });
+
+  //   store.subscribe(handleChange);
+  // let output = store.dispatch(subjects);  
+
+  
+  
+});
+
 function handleChange(){
   //Check state.
   let state = store.getState();

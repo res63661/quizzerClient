@@ -55,18 +55,24 @@ export function getAllSubjects() {
     }
 }
 
+export function getQuestionsBySubjects_fetch(subjectsList) {
+    //http://localhost:8080/question?q={"$or": [{"subject": "12"}, {"subject": "132"}]}
+    let subjects = subjectsList.map((s)=>({subject: s}));
+    let sfinal = subjects.map(s=>JSON.stringify(s)).join(',')
+    let url = `http://localhost:8080/question?q={"$or": [${sfinal}]}`
+
+    return fetch(url, {
+        mode: 'cors',
+        headers: {
+            "Content-Type": "application/json; charset=utf-8"
+        }
+    })
+}
+
 //Get questions by subjects list.
 export function getQuestionsBySubjects(subjectsList) {
-    //http://localhost:8080/question?q={"$or": [{"subject": "12"}, {"subject": "132"}]}
-    let subjects = subjectsList.map((s)=>{subject: s});
-    let url = `http://localhost:8080/question?q={"$or": ${subjects}}`
     return (dispatch) => {
-        return fetch(url, {
-            mode: 'cors',
-            headers: {
-                "Content-Type": "application/json; charset=utf-8"
-            }
-        })
+        return getQuestionsBySubjects_fetch(subjectsList)
             .then(res => res.json())
             .then(json => dispatch({
                 type: types.getQuestionsBySubjectsSuccess,
